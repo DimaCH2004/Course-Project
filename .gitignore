@@ -1,0 +1,11 @@
+# .gitignore
+## Ignore Visual Studio temporary files
+.vs/
+## Build results
+[Dd]ebug/
+[Rr]elease/
+bin/
+obj/
+*.user
+*.suo
+*.ide

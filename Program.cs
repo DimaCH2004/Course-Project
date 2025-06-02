@@ -284,14 +284,8 @@ if (!ALLOWED_EXTENSIONS.Contains(extension))
     return;
 }
 
-// PROBLEM: Extension check happens AFTER trying alternatives!
-// This means /somefile could serve somefile.html even if /somefile doesn't have a valid extension
-
-// FIX: Move extension validation before trying alternatives
 string requestedExtension = Path.GetExtension(request.Path).ToLower();
 
-// If the original request has no extension, allow it (for directory/index.html fallback)
-// If it has an extension, validate it first
 if (!string.IsNullOrEmpty(requestedExtension) && !ALLOWED_EXTENSIONS.Contains(requestedExtension))
 {
     SendErrorResponse(stream, 403, "Forbidden");

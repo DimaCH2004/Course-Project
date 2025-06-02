@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{STATUS_CODE}} {{STATUS_TEXT}}</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>{{STATUS_CODE}} {{STATUS_TEXT}}</h1>
+        <p>Something went wrong with your request</p>
+    </header>
+    <main>
+        <section>
+            <h2>Error Details</h2>
+            
+            <div class="error-info">
+                <h3>What happened?</h3>
+                <p>
+                    {{#if (eq STATUS_CODE 404)}}
+                    The requested page or file could not be found on this server.
+                    {{else if (eq STATUS_CODE 403)}}
+                    You don't have permission to access this resource, or the file type is not allowed.
+                    {{else if (eq STATUS_CODE 405)}}
+                    The request method used is not allowed for this resource. Only GET requests are supported.
+                    {{else}}
+                    An unexpected error occurred while processing your request.
+                    {{/if}}
+                </p>
+                
+                <h3>What can you do?</h3>
+                <ul>
+                    <li>Check the URL for typos</li>
+                    <li>Make sure you're requesting a valid file (.html, .css, .js)</li>
+                    <li>Return to the <a href="/">home page</a></li>
+                    <li>Contact the server administrator if the problem persists</li>
+                </ul>
+            </div>
+            
+            <div class="navigation">
+                <a href="/" class="home-link">🏠 Go Home</a>
+                <a href="/about.html" class="about-link">ℹ️ About Server</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p><small>C# Web Server - Custom Error Page</small></p>
+    </footer>
+</body>
+</html>

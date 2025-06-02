@@ -253,35 +253,85 @@ class Program
             filePath = Path.Combine(filePath, "index.html");
         }
 
-        if (!File.Exists(filePath))
+        // Current problematic code in HandleGetRequest:
+if (!File.Exists(filePath))
+{
+    // Try common variations
+    string[] alternatives = { filePath + ".html", filePath + "/index.html" };
+    bool found = false;
+    
+    foreach (string alt in alternatives)
+    {
+        if (File.Exists(alt))
         {
-            // Try common variations
-            string[] alternatives = { filePath + ".html", filePath + "/index.html" };
-            bool found = false;
-            
-            foreach (string alt in alternatives)
-            {
-                if (File.Exists(alt))
-                {
-                    filePath = alt;
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (!found)
-            {
-                SendErrorResponse(stream, 404, "Not Found");
-                return;
-            }
+            filePath = alt;
+            found = true;
+            break;
         }
+    }
+    
+    if (!found)
+    {
+        SendErrorResponse(stream, 404, "Not Found");
+        return;
+    }
+}
 
-        string extension = Path.GetExtension(filePath).ToLower();
-        if (!ALLOWED_EXTENSIONS.Contains(extension))
+string extension = Path.GetExtension(filePath).ToLower();
+if (!ALLOWED_EXTENSIONS.Contains(extension))
+{
+    SendErrorResponse(stream, 403, "Forbidden");
+    return;
+}
+
+// PROBLEM: Extension check happens AFTER trying alternatives!
+// This means /somefile could serve somefile.html even if /somefile doesn't have a valid extension
+
+// FIX: Move extension validation before trying alternatives
+string requestedExtension = Path.GetExtension(request.Path).ToLower();
+
+// If the original request has no extension, allow it (for directory/index.html fallback)
+// If it has an extension, validate it first
+if (!string.IsNullOrEmpty(requestedExtension) && !ALLOWED_EXTENSIONS.Contains(requestedExtension))
+{
+    SendErrorResponse(stream, 403, "Forbidden");
+    return;
+}
+
+if (!File.Exists(filePath))
+{
+    // Try common variations only if original request had no extension or was valid
+    string[] alternatives = { filePath + ".html", filePath + "/index.html" };
+    bool found = false;
+    
+    foreach (string alt in alternatives)
+    {
+        if (File.Exists(alt))
         {
-            SendErrorResponse(stream, 403, "Forbidden");
-            return;
+            string altExtension = Path.GetExtension(alt).ToLower();
+            if (ALLOWED_EXTENSIONS.Contains(altExtension))
+            {
+                filePath = alt;
+                found = true;
+                break;
+            }
         }
+    }
+    
+    if (!found)
+    {
+        SendErrorResponse(stream, 404, "Not Found");
+        return;
+    }
+}
+
+// Final validation for the actual file being served
+string finalExtension = Path.GetExtension(filePath).ToLower();
+if (!ALLOWED_EXTENSIONS.Contains(finalExtension))
+{
+    SendErrorResponse(stream, 403, "Forbidden");
+    return;
+}
 
         try
         {

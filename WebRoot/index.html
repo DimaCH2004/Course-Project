@@ -10,7 +10,11 @@
 <body>
     <header>
         <h1>🚀 Enhanced C# Web Server</h1>
-        <p>A powerful, custom HTTP server built with C# and .NET</p>
+        <p>A powerful, custom HTTP server built with C# and .NET 8</p>
+        <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span>Server Online</span>
+        </div>
     </header>
 
     <main>
@@ -19,54 +23,99 @@
             <div class="feature-grid">
                 <div class="feature-card">
                     <h3>📁 File Serving</h3>
-                    <p>Serves HTML, CSS, JS, images, and more with proper MIME types</p>
+                    <p>Serves HTML, CSS, JS, images, and more with proper MIME types and content negotiation</p>
                 </div>
                 <div class="feature-card">
                     <h3>🔒 Security</h3>
-                    <p>Path traversal protection and file extension validation</p>
+                    <p>Path traversal protection, file extension validation, and secure request handling</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚡ Caching</h3>
-                    <p>Built-in memory caching and HTTP cache headers</p>
+                    <h3>⚡ Performance</h3>
+                    <p>Built-in memory caching, HTTP cache headers, and asynchronous request processing</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🌐 HTTP Methods</h3>
-                    <p>Supports GET, HEAD, and OPTIONS methods</p>
+                    <h3>🌐 HTTP Compliance</h3>
+                    <p>Supports GET, HEAD, and OPTIONS methods with proper status codes</p>
                 </div>
                 <div class="feature-card">
-                    <h3>📊 Logging</h3>
-                    <p>Request logging with timestamps and client information</p>
+                    <h3>📊 Monitoring</h3>
+                    <p>Request logging with timestamps, client information, and error tracking</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🔄 Async</h3>
-                    <p>Asynchronous request handling for better performance</p>
+                    <h3>🔄 Concurrency</h3>
+                    <p>Multi-threaded architecture with graceful shutdown handling</p>
                 </div>
             </div>
         </section>
 
         <section class="demo">
-            <h2>Interactive Demo</h2>
+            <h2>Live Server Testing</h2>
+            <p>Test the server's capabilities in real-time:</p>
             <div class="demo-controls">
-                <button onclick="testAPI()">Test API Call</button>
-                <button onclick="loadDynamicContent()">Load Content</button>
-                <button onclick="showServerInfo()">Server Info</button>
+                <button onclick="testAPI()" title="Test various file types and endpoints">🧪 Run Tests</button>
+                <button onclick="loadDynamicContent()" title="Load dynamic client-side content">⚡ Dynamic Content</button>
+                <button onclick="showServerInfo()" title="Display server response headers">ℹ️ Server Info</button>
+                <button onclick="clearOutput()" title="Clear the output area">🗑️ Clear</button>
             </div>
             <div id="demo-output" class="demo-output"></div>
         </section>
 
         <section class="links">
-            <h2>Test Links</h2>
-            <ul>
-                <li><a href="/test.html">Test Page</a></li>
-                <li><a href="/api/status">Server Status (JSON)</a></li>
-                <li><a href="/docs/">Documentation Directory</a></li>
-                <li><a href="/images/">Images Directory</a></li>
-            </ul>
+            <h2>Test Resources</h2>
+            <div class="links-grid">
+                <div class="link-category">
+                    <h3>📄 Pages</h3>
+                    <ul>
+                        <li><a href="/test.html">Test Page</a></li>
+                        <li><a href="/index.html">Home (Explicit)</a></li>
+                    </ul>
+                </div>
+                <div class="link-category">
+                    <h3>📊 Data</h3>
+                    <ul>
+                        <li><a href="/api/status.json">Server Status (JSON)</a></li>
+                        <li><a href="/test.txt">Plain Text File</a></li>
+                    </ul>
+                </div>
+                <div class="link-category">
+                    <h3>🎨 Assets</h3>
+                    <ul>
+                        <li><a href="/styles.css">Stylesheet</a></li>
+                        <li><a href="/script.js">JavaScript</a></li>
+                    </ul>
+                </div>
+                <div class="link-category">
+                    <h3>🚫 Error Tests</h3>
+                    <ul>
+                        <li><a href="/nonexistent.html">404 Test</a></li>
+                        <li><a href="/forbidden.exe">403 Test</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <h2>Server Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="requests-count">-</div>
+                    <div class="stat-label">Requests Made</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="uptime">-</div>
+                    <div class="stat-label">Session Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="success-rate">-</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Enhanced C# Web Server | Built with ❤️ and C#</p>
+        <p>&copy; 2024 Enhanced C# Web Server | Built with ❤️ and C# | .NET 8.0</p>
+        <p><small>TCP Socket Implementation with Threading Support</small></p>
     </footer>
 
     <script src="/script.js"></script>
